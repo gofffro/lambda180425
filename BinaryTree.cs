@@ -25,5 +25,40 @@
         Parent = parent;
       }
     }
+
+    private Node<T> _root;
+
+    public void Insert(T data, Func<T, T, int> comparer)
+    {
+      if (_root == null)
+      {
+        _root = new Node<T>(data, null);
+        return;
+      }
+
+      Node<T> current = _root;
+      while (true)
+      {
+        int comparison = comparer(data, current.Data);
+        if (comparison < 0)
+        {
+          if (current.Left == null)
+          {
+            current.Left = new Node<T>(data, current);
+            break;
+          }
+          current = current.Left;
+        }
+        else
+        {
+          if (current.Right == null)
+          {
+            current.Right = new Node<T>(data, current);
+            break;
+          }
+          current = current.Right;
+        }
+      }
+    }
   }
 }
