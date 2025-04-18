@@ -60,5 +60,8 @@
         }
       }
     }
+    public IEnumerator<T> GetEnumerator() => new InOrderEnumerator(_root);
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
   }
 }
