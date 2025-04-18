@@ -206,5 +206,20 @@
         }
       }
     }
-   }
+    private static Node<T> FindRightmost(Node<T> node)
+    {
+      while (node != null && node.Right != null)
+      {
+        node = node.Right;
+      }
+      return node;
+    }
+
+    public static ReverseIterator operator --(ReverseIterator iterator)
+    {
+      iterator.Previous();
+      return iterator;
+    }
+  }
+}
   }
