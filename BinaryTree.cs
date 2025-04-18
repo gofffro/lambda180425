@@ -114,6 +114,44 @@
 
       public void Dispose() { }
     }
+    public ForwardIterator GetForwardIterator() => new ForwardIterator(_root);
+    public ReverseIterator GetReverseIterator() => new ReverseIterator(_root);
 
-  }
+    public class ForwardIterator
+    {
+      private Node<T> _current;
+
+      internal ForwardIterator(Node<T> root) => _current = FindLeftmost(root);
+      public T Current => _current.Data;
+
+      public bool Next()
+      {
+        if (_current == null)
+        {
+          return false;
+        }
+
+        if (_current.Right != null)
+        {
+          _current = FindLeftmost(_current.Right);
+          return true;
+        }
+
+        while (_current.Parent != null && _current == _current.Parent.Right)
+        {
+          _current = _current.Parent;
+        }
+
+        _current = _current.Parent;
+
+        if (_current != null)
+        {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+      }
+    }
 }
