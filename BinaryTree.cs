@@ -1,4 +1,8 @@
-﻿namespace lambda180425
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace lambda180425
 {
   public class BinaryTree<T> : IEnumerable<T>
   {
@@ -60,6 +64,7 @@
         }
       }
     }
+
     public IEnumerator<T> GetEnumerator() => new InOrderEnumerator(_root);
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -114,6 +119,7 @@
 
       public void Dispose() { }
     }
+
     public ForwardIterator GetForwardIterator() => new ForwardIterator(_root);
     public ReverseIterator GetReverseIterator() => new ReverseIterator(_root);
 
@@ -169,6 +175,7 @@
         return iterator;
       }
     }
+
     public class ReverseIterator
     {
       private Node<T> _current;
@@ -205,26 +212,39 @@
           return false;
         }
       }
-    }
-    private static Node<T> FindRightmost(Node<T> node)
-    {
-      while (node != null && node.Right != null)
+
+      private static Node<T> FindRightmost(Node<T> node)
       {
-        node = node.Right;
+        while (node != null && node.Right != null)
+        {
+          node = node.Right;
+        }
+        return node;
       }
-      return node;
+
+      public static ReverseIterator operator --(ReverseIterator iterator)
+      {
+        iterator.Previous();
+        return iterator;
+      }
     }
 
-    public static ReverseIterator operator --(ReverseIterator iterator)
+    public Func<IEnumerable<T>> GetCentralTraversalIterator() => () =>
     {
-      iterator.Previous();
-      return iterator;
+      List<T> result = new List<T>();
+      TraverseInOrder(_root, result);
+      return result;
+    };
+
+    private void TraverseInOrder(Node<T> node, List<T> result)
+    {
+      if (node == null)
+      {
+        return;
+      }
+      TraverseInOrder(node.Left, result);
+      result.Add(node.Data);
+      TraverseInOrder(node.Right, result);
     }
   }
-  public Func<IEnumerable<T>> GetCentralTraversalIterator() => () =>
-  {
-    List<T> result = new List<T>();
-    TraverseInOrder(_root, result);
-    return result;
-  };
-  }
+}
