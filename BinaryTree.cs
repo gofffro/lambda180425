@@ -221,5 +221,10 @@
       return iterator;
     }
   }
-}
+  public Func<IEnumerable<T>> GetCentralTraversalIterator() => () =>
+  {
+    List<T> result = new List<T>();
+    TraverseInOrder(_root, result);
+    return result;
+  };
   }
