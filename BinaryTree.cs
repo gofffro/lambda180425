@@ -153,5 +153,15 @@
           return false;
         }
       }
+
+      private static Node<T> FindLeftmost(Node<T> node)
+      {
+        while (node != null && node.Left != null)
+        {
+          node = node.Left;
+        }
+        return node;
+      }
+
     }
-}
+  }
