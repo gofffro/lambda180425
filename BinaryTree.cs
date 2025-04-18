@@ -169,5 +169,42 @@
         return iterator;
       }
     }
+    public class ReverseIterator
+    {
+      private Node<T> _current;
+
+      internal ReverseIterator(Node<T> root) => _current = FindRightmost(root);
+      public T Current => _current.Data;
+
+      public bool Previous()
+      {
+        if (_current == null)
+        {
+          return false;
+        }
+
+        if (_current.Left != null)
+        {
+          _current = FindRightmost(_current.Left);
+          return true;
+        }
+
+        while (_current.Parent != null && _current == _current.Parent.Left)
+        {
+          _current = _current.Parent;
+        }
+
+        _current = _current.Parent;
+
+        if (_current != null)
+        {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+      }
+    }
+   }
   }
- }
