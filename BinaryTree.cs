@@ -163,5 +163,11 @@
         return node;
       }
 
+      public static ForwardIterator operator ++(ForwardIterator iterator)
+      {
+        iterator.Next();
+        return iterator;
+      }
     }
   }
+ }
