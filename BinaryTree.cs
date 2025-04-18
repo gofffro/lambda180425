@@ -18,4 +18,14 @@
         Parent = parent;
       }
     }
+
+    public BinaryTree(Func<T, T, int> comparer)
+    {
+      if (comparer == null)
+      {
+        throw new ArgumentNullException(nameof(comparer));
+      }
+      _comparer = comparer;
+    }
   }
+}
