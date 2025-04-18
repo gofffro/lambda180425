@@ -42,6 +42,7 @@
       }
     }
   }
+
   public static class BinaryTreeExtensions
   {
     public static void Insert<T>(this BinaryTree<T> tree, T data) where T : IComparable<T>
